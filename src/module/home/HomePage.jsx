@@ -1,0 +1,136 @@
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+
+const HomePage = () => {
+  const [categoryData, setCategoryData] = useState([])
+  const [productsData, setProductsData] = useState([])
+  const [activeCategory, setActiveCategory] = useState(null)
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null)
+  console.log(selectedCategoryId);
+
+
+  async function getCategories() {
+    try {
+      const res = await axios.get("https://693d1ae6f55f1be79301e90f.mockapi.io/categories")
+      setCategoryData(res.data)
+      setActiveCategory(res.data[0]?.id) // default: birinchi category
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getCategories()
+    console.log("categories");
+  }, [])
+
+  async function getProdcuts() {
+    try {
+      const resProdcust = await axios.get("https://693d1ae6f55f1be79301e90f.mockapi.io/products")
+      setProductsData(resProdcust.data)
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getProdcuts()
+    console.log("prodcuts");
+
+  }, [])
+
+  return (
+    <section>
+      <div className="container mx-auto px-2 sm:px-0 2xl:px-32">
+        <div className='grid grid-cols-8 gap-35 sm:gap-40 xl:gap-2 2xl:gap-2 scrollbar  [&::-webkit-scrollbar]:w-0 overflow-x-scroll'>
+          {categoryData.map((el) => (
+            <div
+              key={el.id}
+              className={`w-[130px] sm:w-[150px] h-[84px] sm:h-[104px] flex items-center justify-center border rounded-lg cursor-pointer 
+                ${activeCategory === el.id ? 'bg-white border-[#E23535]' : 'bg-white border-gray-300'}`}
+              onClick={() => {
+                setActiveCategory(el.id)
+                setSelectedCategoryId(el.id)
+              }}
+            >
+              <div className='flex flex-col items-center'>
+                <img className='w-10 h-10' src={el.icon} alt={el.title} />
+                <p className={`pt-0 sm:pt-1 ${activeCategory === el.id ? 'text-[#E23535]' : 'text-black'}`}>
+                  {el.title}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex items-start gap-2 sm:gap-5 overflow-x-scroll scrollbar  [&::-webkit-scrollbar]:w-0 w-full py-3">
+          {(selectedCategoryId
+            ? productsData.filter(item => item.categoryId === selectedCategoryId)
+            : productsData.filter(item => item.badge === "NEW" && item.badge === "DISCOUNT")
+          ).map((pro) => (
+            <div
+              key={pro.id}
+              className='flex-shrink-0 w-[330px] sm:w-[250px] sm:w-[310px] flex sm:flex-col items-center justify-between gap-3 p-3 bg-white border-gray-200 rounded-lg overflow-hidden border'
+            >
+              <img className='w-[100px] sm:w-full h-auto sm:h-[250px]' src={pro.image} alt={pro.title} />
+              <div>
+                <h1 className='font-medium text-[18px] whitespace-nowrap'>{pro.title}</h1>
+                <p className='line-clamp-2'>Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...</p>
+                <div className='mt-4 flex items-center justify-between'>
+                  <button className='max-w-[80px] sm:max-w-[131px] w-full h-[40px] sm:h-[48px] bg-[#FF7010] rounded-lg text-white font-medium cursor-pointer text-[14px] sm:text-[18px]'>
+                    Выбрать
+                  </button>
+                  <h2 className='font-medium whitespace-nowrap bg-orange-100 sm:bg-transparent p-2 sm:p-0 rounded text-[#FF7010] text-[16px] xl:text-[18px]'>
+                    от <span className='font-medium'>{pro.basePrice}</span> ₽
+                  </h2>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className='flex items-center justify-between bg-[white] rounded-lg gap-5 p-3'>
+          <h1 className='font-medium hidden sm:flex text-[16px] md:text-[18px] whitespace-nowrap'>Проверить адрес доставки</h1>
+          <input className='border border-gray-200 px-2 py-2   rounded w-full outline-none' placeholder='Адрес' type="text"/>
+          <button className='rounded-lg text-[white] cursor-pointer bg-[#FF7010] px-3 py-2'>
+            Проверить
+          </button>
+        </div>
+
+
+        {categoryData.map((el) => (
+          <div className='text-left'>
+            <h1 className='text-[24px] font-medium mt-5'>
+              {
+                productsData.find((e) => e.categoryId === el.id) ? el.title : ""
+              }
+            </h1>
+            <div className='mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2'>
+              {productsData
+                .filter((el1) => el1.categoryId === el.id)
+                .map((item) => (
+                  <div className='w-full sm:max-w-[310px] flex sm:flex-col items-center justify-between gap-5 p-2 sm:p-3 w-full bg-white border-gray-200 rounded-lg overflow-hidden border'>
+                    <img className='w-[140px] sm:w-full h-auto sm:h-[250px]' src={item.image} alt="image" />
+                    <div>
+                      <div>
+                        <h1 className='font-medium text-[18px]'>{item.title}</h1>
+                        <p className='line-clamp-2'>Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...</p>
+                      </div>
+                      <div className='mt-4 flex items-center gap-2 justify-between'>
+                        <button className='max-w-[80px] sm:max-w-[131px] w-full h-[40px] sm:h-[48px] bg-[#FF7010] rounded-lg text-[white] font-medium cursor-pointer text-[14px] sm:text-[18px]'>
+                          Выбрать
+                        </button>
+                        <h2 className='font-medium whitespace-nowrap bg-orange-100 sm:bg-transparent p-2 sm:p-0 rounded text-[#FF7010] text-[16px] xl:text-[18px]'>от <span className='font-medium'>{item.basePrice}</span> ₽</h2>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+export default HomePage
