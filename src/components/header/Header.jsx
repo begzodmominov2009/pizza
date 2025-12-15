@@ -57,7 +57,7 @@ const Header = () => {
             setFirstTimeOpened(false)
             setTimeout(() => {
                 setLoadingFlag(false)
-            }, 1500)
+            }, 2000)
         } else {
             setOpen(!open) 
         }
@@ -74,7 +74,7 @@ const Header = () => {
                             <p className="text-[14px]">{t.header_head}</p>
                         </div>
                         <p className="text-[14px] hidden sm:flex">{t.header_region}</p>
-                        <p className="text-[14px] hidden lg:flex">{t.header_clock} <span className="font-medium">00:24:19</span></p>
+                        <p className="text-[14px] hidden lg:flex">{t.header_clock} <span className="font-medium">: 00:24:19</span></p>
                     </div>
 
                     <div className="flex items-center gap-4">
