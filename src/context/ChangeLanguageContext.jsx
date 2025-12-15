@@ -12,7 +12,6 @@ const ChangeLanguageContext = ({ children }) => {
         localStorage.setItem("lang", lang)
     }, [lang])
 
-
     const translations = {
         uz: {
             header_head: "Toshkent",
@@ -36,9 +35,8 @@ const ChangeLanguageContext = ({ children }) => {
             header_profile: "Войти в аккаунт"
         }
     }
-
     const t = translations[lang]
-
+    
     return (
         <LanguageContext.Provider value={{ lang, setLang, t }}>
             {children}
