@@ -1,14 +1,16 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { Minus, Plus } from 'lucide-react'
+import React, { useContext, useEffect, useState } from 'react'
+import { CartContext } from '../../context/CartContext'
 
 const HomePage = () => {
   const [categoryData, setCategoryData] = useState([])
   const [productsData, setProductsData] = useState([])
   const [activeCategory, setActiveCategory] = useState(null)
   const [selectedCategoryId, setSelectedCategoryId] = useState(null)
-  console.log(selectedCategoryId);
-
-
+  const [loading, setLoading] = useState(true)
+  const {cart, addToCart, increase, decrease} = useContext(CartContext)
+ 
   async function getCategories() {
     try {
       const res = await axios.get("https://693d1ae6f55f1be79301e90f.mockapi.io/categories")
@@ -18,12 +20,6 @@ const HomePage = () => {
       console.log(err);
     }
   }
-
-  useEffect(() => {
-    getCategories()
-    console.log("categories");
-  }, [])
-
   async function getProdcuts() {
     try {
       const resProdcust = await axios.get("https://693d1ae6f55f1be79301e90f.mockapi.io/products")
@@ -34,10 +30,22 @@ const HomePage = () => {
   }
 
   useEffect(() => {
-    getProdcuts()
-    console.log("prodcuts");
-
+    const fetchData = async () => {
+      setLoading(true)
+      await getCategories()
+      await getProdcuts()
+      setLoading(false)
+    }
+    fetchData()
   }, [])
+
+  if (loading) {
+    return (
+      <div className="w-full h-[80vh] flex justify-center items-center">
+        <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent border-solid rounded-full animate-spin"></div>
+      </div>
+    )
+  }
 
   return (
     <section>
@@ -77,9 +85,32 @@ const HomePage = () => {
                 <h1 className='font-medium text-[18px] whitespace-nowrap'>{pro.title}</h1>
                 <p className='line-clamp-2'>Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...</p>
                 <div className='mt-4 flex items-center justify-between'>
-                  <button className='max-w-[80px] sm:max-w-[131px] w-full h-[40px] sm:h-[48px] bg-[#FF7010] rounded-lg text-white font-medium cursor-pointer text-[14px] sm:text-[18px]'>
-                    Выбрать
-                  </button>
+                  {cart.find((el) => el.id === pro.id) ? (
+                    <div className="flex items-center justify-between max-w-[80px] sm:max-w-[131px] w-full h-[40px] sm:h-[48px] bg-[#FF7010] rounded-lg text-white">
+                      <button
+                        onClick={() => decrease(pro)}
+                        className="flex cursor-pointer items-center justify-center w-[32px] sm:w-[40px] h-full hover:bg-black/10 rounded-l-lg"
+                      >
+                        <Minus size={18} strokeWidth={2} />
+                      </button>
+
+                      <span className="font-medium text-[14px] sm:text-[18px] select-none">
+                        {cart.find((el) => el.id === pro.id).qty}
+                      </span>
+
+                      <button
+                        onClick={() => increase(pro)}
+                        className="flex cursor-pointer items-center justify-center w-[32px] sm:w-[40px] h-full hover:bg-black/10 rounded-r-lg"
+                      >
+                        <Plus size={18} strokeWidth={2} />
+                      </button>
+                    </div>
+                  ) : (
+                    <button onClick={() => addToCart(pro)} className='max-w-[80px] sm:max-w-[131px] w-full h-[40px] sm:h-[48px] bg-[#FF7010] rounded-lg text-white font-medium cursor-pointer text-[14px] sm:text-[18px]'>
+                      Выбрать
+                    </button>
+                  )
+                  }
                   <h2 className='font-medium whitespace-nowrap bg-orange-100 sm:bg-transparent p-2 sm:p-0 rounded text-[#FF7010] text-[16px] xl:text-[18px]'>
                     от <span className='font-medium'>{pro.basePrice}</span> ₽
                   </h2>
@@ -91,12 +122,11 @@ const HomePage = () => {
 
         <div className='flex items-center justify-between bg-[white] rounded-lg gap-5 p-3'>
           <h1 className='font-medium hidden sm:flex text-[16px] md:text-[18px] whitespace-nowrap'>Проверить адрес доставки</h1>
-          <input className='border border-gray-200 px-2 py-2   rounded w-full outline-none' placeholder='Адрес' type="text"/>
+          <input className='border border-gray-200 px-2 py-2   rounded w-full outline-none' placeholder='Адрес' type="text" />
           <button className='rounded-lg text-[white] cursor-pointer bg-[#FF7010] px-3 py-2'>
             Проверить
           </button>
         </div>
-
 
         {categoryData.map((el) => (
           <div className='text-left'>
@@ -117,9 +147,33 @@ const HomePage = () => {
                         <p className='line-clamp-2'>Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...</p>
                       </div>
                       <div className='mt-4 flex items-center gap-2 justify-between'>
-                        <button className='max-w-[80px] sm:max-w-[131px] w-full h-[40px] sm:h-[48px] bg-[#FF7010] rounded-lg text-[white] font-medium cursor-pointer text-[14px] sm:text-[18px]'>
-                          Выбрать
-                        </button>
+                        {
+                          cart.find((el) => el.id === item.id) ? (
+                            <div className="flex items-center justify-between max-w-[80px] sm:max-w-[131px] w-full h-[40px] sm:h-[48px] bg-[#FF7010] rounded-lg text-white">
+                              <button
+                                onClick={() => decrease(item)}
+                                className="flex cursor-pointer items-center justify-center w-[32px] sm:w-[40px] h-full hover:bg-black/10 rounded-l-lg"
+                              >
+                                <Minus size={18} strokeWidth={2} />
+                              </button>
+
+                              <span className="font-medium text-[14px] sm:text-[18px] select-none">
+                                {cart.find((el) => el.id === item.id).qty}
+                              </span>
+
+                              <button
+                                onClick={() => increase(item)}
+                                className="flex cursor-pointer items-center justify-center w-[32px] sm:w-[40px] h-full hover:bg-black/10 rounded-r-lg"
+                              >
+                                <Plus size={18} strokeWidth={2} />
+                              </button>
+                            </div>
+                          ) : (
+                            <button onClick={() => addToCart(item)} className='max-w-[80px] sm:max-w-[131px] w-full h-[40px] sm:h-[48px] bg-[#FF7010] rounded-lg text-[white] font-medium cursor-pointer text-[14px] sm:text-[18px]'>
+                              Выбрать
+                            </button>
+                          )
+                        }
                         <h2 className='font-medium whitespace-nowrap bg-orange-100 sm:bg-transparent p-2 sm:p-0 rounded text-[#FF7010] text-[16px] xl:text-[18px]'>от <span className='font-medium'>{item.basePrice}</span> ₽</h2>
                       </div>
                     </div>

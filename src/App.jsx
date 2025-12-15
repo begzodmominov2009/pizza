@@ -8,7 +8,7 @@ const CartPage = React.lazy(() => import("./module/Cart/CartPage"));
 const App = () => {
   return (
     <BrowserRouter>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense>
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<HomePage />} />
