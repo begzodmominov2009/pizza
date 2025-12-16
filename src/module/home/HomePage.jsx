@@ -103,10 +103,10 @@ const HomePage = () => {
                 slidesPerView: 3,
               },
               1024: {
-                slidesPerView: 4,
+                slidesPerView: 1,
               },
               1280: {
-                slidesPerView: 4.5,
+                slidesPerView: 2,
               },
             }}
 
