@@ -55,11 +55,11 @@ const HomePage = () => {
   return (
     <section>
       <div className="container mx-auto px-2 sm:px-0 2xl:px-32">
-        <div className='grid grid-cols-8 gap-35 sm:gap-40 xl:gap-2 2xl:gap-2 scrollbar  [&::-webkit-scrollbar]:w-0 overflow-x-scroll'>
+        <div className='grid grid-cols-8 gap-35 sm:gap-45 xl:gap-[185px] 2xl:gap-46 scrollbar  [&::-webkit-scrollbar]:w-0 overflow-x-scroll'>
           {categoryData.map((el) => (
             <div
               key={el.id}
-              className={`w-[130px] sm:w-[150px] h-[84px] sm:h-[104px] flex items-center justify-center border rounded-lg cursor-pointer 
+              className={`w-[130px] sm:w-[170px] h-[84px] sm:h-[104px] flex items-center justify-center border rounded-lg cursor-pointer 
                 ${activeCategory === el.id ? 'bg-white border-[#E23535]' : 'bg-white border-gray-300'}`}
               onClick={() => {
                 setActiveCategory(el.id)
@@ -78,38 +78,32 @@ const HomePage = () => {
 
         <div className="flex items-start gap-2 sm:gap-5 overflow-x-scroll scrollbar  [&::-webkit-scrollbar]:w-0 w-full py-3">
           <Swiper
-            slidesPerView="auto"
             spaceBetween={12}
             className="w-full py-3"
-            loop={true}
+            loop={false}
             modules={[Autoplay]}
             autoplay={{
               delay: 1500,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
-
             breakpoints={{
               0: {
-                slidesPerView: 1.1,   // juda kichik ekran
-              },
-              480: {
-                slidesPerView: 1.5,
+                slidesPerView: 1.1,
               },
               640: {
-                slidesPerView: 2.2,
+                slidesPerView: 2.1,
               },
               768: {
-                slidesPerView: 3,
+                slidesPerView: 2.5,
               },
               1024: {
-                slidesPerView: 1,
+                slidesPerView: 3.2,
               },
               1280: {
-                slidesPerView: 2,
+                slidesPerView: 4.2,
               },
             }}
-
           >
             {(selectedCategoryId
               ? productsData.filter(item => item.categoryId === selectedCategoryId)
@@ -120,11 +114,10 @@ const HomePage = () => {
                 className="!w-auto"
               >
                 {/* CARD – O‘ZGARMAGAN */}
-                <div className='flex items-center gap-3 p-3 bg-white border-gray-200 rounded-lg overflow-hidden border min-w[330px] sm:min-w-[270px]'>
-
+                <div className='flex items-center gap-3 p-3 bg-white border-gray-200 rounded-lg justify-center overflow-hidden border w-[320px] sm:w-[370px]'>
                   <div>
                     <img
-                      className='w-[100px] h-auto sm:h-[120px]'
+                      className='w-[180px] h-auto sm:h-[120px]'
                       src={pro.image}
                       alt={pro.title}
                     />
@@ -141,7 +134,7 @@ const HomePage = () => {
 
                     <div className='mt-4 flex items-center justify-end gap-2'>
                       {cart.find((el) => el.id === pro.id) ? (
-                        <div className="max-w-[60px] sm:max-w-[111px] w-full h-[30px] sm:h-[38px] bg-[#FF7010] rounded-lg text-white flex items-center justify-between">
+                        <div className="w-[80px] sm:max-w-[111px] w-full h-[38px] sm:h-[38px] bg-[#FF7010] rounded-lg text-white flex items-center justify-between">
                           <button
                             onClick={() => decrease(pro)}
                             className="w-full h-full flex items-center cursor-pointer justify-center hover:bg-black/10 rounded-l-lg"
@@ -163,13 +156,13 @@ const HomePage = () => {
                       ) : (
                         <button
                           onClick={() => addToCart(pro)}
-                          className='max-w-[60px] sm:max-w-[111px] cursor-pointer w-full h-[30px] sm:h-[38px] bg-[#FF7010] rounded-lg text-white font-medium text-[14px] sm:text-[18px]'
+                          className='w-[60px] sm:max-w-[111px] cursor-pointer w-full h-[38px] sm:h-[38px] bg-[#FF7010] rounded-lg text-white font-medium text-[14px] sm:text-[18px]'
                         >
                           Выбрать
                         </button>
                       )}
 
-                      <h2 className='font-medium whitespace-nowrap bg-orange-100 sm:bg-transparent p-2 sm:p-0 rounded text-[#FF7010] text-[16px] xl:text-[18px]'>
+                      <h2 className='font-medium whitespace-nowrap  bg-orange-100 sm:bg-transparent p-2 sm:p-0 rounded-lg text-[#FF7010] text-[16px] xl:text-[18px]'>
                         от <span className='font-medium'>{pro.basePrice}</span> ₽
                       </h2>
                     </div>

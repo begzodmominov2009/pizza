@@ -4,6 +4,8 @@ import Layout from "./components/Layout/Layout";
 
 const HomePage = React.lazy(() => import("./module/home/HomePage"));
 const CartPage = React.lazy(() => import("./module/Cart/CartPage"));
+const ProfilePage = React.lazy(() => import("./module/profile/ProfilePage"))
+
 
 const App = () => {
   return (
@@ -14,6 +16,7 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="cart" element={<CartPage />} />
           </Route>
+          <Route path="profile" element={<ProfilePage />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

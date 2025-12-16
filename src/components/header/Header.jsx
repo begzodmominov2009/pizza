@@ -1,4 +1,4 @@
-import { MapPinned, ReceiptRussianRuble, ShoppingCart, User } from 'lucide-react'
+import { MapPinned, ReceiptRussianRuble, Search, ShoppingCart, User } from 'lucide-react'
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { CartContext } from '../../context/CartContext'
 import { LanguageContext } from '../../context/ChangeLanguageContext'
@@ -12,7 +12,7 @@ const Header = () => {
     const [sum, setSum] = useState(0)
     const [open, setOpen] = useState(false)
     const [loadingFlag, setLoadingFlag] = useState(false)
-    const [firstTimeOpened, setFirstTimeOpened] = useState(true) 
+    const [firstTimeOpened, setFirstTimeOpened] = useState(true)
     const dropdownRef = useRef(null)
 
     const languages = [
@@ -59,7 +59,7 @@ const Header = () => {
                 setLoadingFlag(false)
             }, 2000)
         } else {
-            setOpen(!open) 
+            setOpen(!open)
         }
     }
 
@@ -79,15 +79,14 @@ const Header = () => {
 
                     <div className="flex items-center gap-4">
                         <p className="text-[14px] hidden lg:flex">{t.header_work_time}</p>
-
                         <div className="flex items-center gap-2 relative" ref={dropdownRef}>
-                            <div className="flex cursor-pointer items-center gap-1">
+                            <div className="hidden md:flex cursor-pointer items-center gap-1">
                                 <User className="text-[#FF7010] w-5 h-5" />
-                                <p className="text-[14px] whitespace-nowrap">{t.header_profile}</p>
+                                <p className=" text-[14px] whitespace-nowrap">{t.header_profile}</p>
                             </div>
 
                             {/* Language dropdown */}
-                            <div className="relative max-w-[100px] w-full">
+                            <div className="hidden md:flex relative max-w-[100px] w-full">
                                 <div
                                     className="flex items-center gap-1 justify-between border border-gray-300 rounded px-2 py-1 cursor-pointer bg-white"
                                     onClick={handleDropdown}
@@ -125,6 +124,10 @@ const Header = () => {
                                     </div>
                                 )}
                             </div>
+                            <button className="flex md:hidden items-center cursor-pointer max-w-[129px] w-full h-[30px] justify-center gap-[2px] bg-[#FF7010] text-white px-3 py-1 rounded">
+                                <ReceiptRussianRuble className="w-5 h-5" />
+                                <span className="flex items-center">{Math.ceil(sum)}</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -133,13 +136,16 @@ const Header = () => {
             <div className="container mx-auto px-2 lg:px-0 2xl:px-32 flex items-center justify-between py-3">
                 <img src="/logo.svg" alt="logo" />
                 <div className="flex items-center gap-2">
-                    <button className="flex items-center cursor-pointer w-[89px] h-[40px] justify-center gap-2 bg-[#FF7010] text-white px-3 py-1 rounded">
+                    <button className="hidden md:flex items-center cursor-pointer w-[89px] h-[40px] justify-center gap-2 bg-[#FF7010] text-white px-3 py-1 rounded">
                         <ShoppingCart className="w-5 h-5" />
                         <span>{cart.length}</span>
                     </button>
-                    <button className="flex items-center cursor-pointer max-w-[129px] w-full h-[40px] justify-center gap-[2px] bg-[#FF7010] text-white px-3 py-1 rounded">
+                    <button className="hidden md:flex items-center cursor-pointer max-w-[129px] w-full h-[40px] justify-center gap-[2px] bg-[#FF7010] text-white px-3 py-1 rounded">
                         <ReceiptRussianRuble className="w-5 h-5" />
                         <span className="flex items-center">{Math.ceil(sum)}</span>
+                    </button>
+                    <button>
+                        <Search className='w-5 h-5 text-[#FF7010]' />
                     </button>
                 </div>
             </div>
