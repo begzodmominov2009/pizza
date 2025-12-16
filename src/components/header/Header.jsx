@@ -130,7 +130,6 @@ const Header = () => {
                 </div>
                 <hr className="border-[#F0F0F0] mt-2" />
             </div>
-
             <div className="container mx-auto px-2 lg:px-0 2xl:px-32 flex items-center justify-between py-3">
                 <img src="/logo.svg" alt="logo" />
                 <div className="flex items-center gap-2">

@@ -2,6 +2,10 @@ import axios from 'axios'
 import { Minus, Plus } from 'lucide-react'
 import React, { useContext, useEffect, useState } from 'react'
 import { CartContext } from '../../context/CartContext'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/free-mode'
+import { Autoplay } from 'swiper/modules'
 
 const HomePage = () => {
   const [categoryData, setCategoryData] = useState([])
@@ -9,8 +13,9 @@ const HomePage = () => {
   const [activeCategory, setActiveCategory] = useState(null)
   const [selectedCategoryId, setSelectedCategoryId] = useState(null)
   const [loading, setLoading] = useState(true)
-  const {cart, addToCart, increase, decrease} = useContext(CartContext)
- 
+  const { cart, addToCart, increase, decrease } = useContext(CartContext)
+  const DEFAULT_CATEGORY_ID = "6";
+
   async function getCategories() {
     try {
       const res = await axios.get("https://693d1ae6f55f1be79301e90f.mockapi.io/categories")
@@ -72,52 +77,108 @@ const HomePage = () => {
         </div>
 
         <div className="flex items-start gap-2 sm:gap-5 overflow-x-scroll scrollbar  [&::-webkit-scrollbar]:w-0 w-full py-3">
-          {(selectedCategoryId
-            ? productsData.filter(item => item.categoryId === selectedCategoryId)
-            : productsData.filter(item => item.badge === "NEW" && item.badge === "DISCOUNT")
-          ).map((pro) => (
-            <div
-              key={pro.id}
-              className='flex-shrink-0 w-[330px] sm:w-[250px] sm:w-[310px] flex sm:flex-col items-center justify-between gap-3 p-3 bg-white border-gray-200 rounded-lg overflow-hidden border'
-            >
-              <img className='w-[100px] sm:w-full h-auto sm:h-[250px]' src={pro.image} alt={pro.title} />
-              <div>
-                <h1 className='font-medium text-[18px] whitespace-nowrap'>{pro.title}</h1>
-                <p className='line-clamp-2'>Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...</p>
-                <div className='mt-4 flex items-center justify-between'>
-                  {cart.find((el) => el.id === pro.id) ? (
-                    <div className="flex items-center justify-between max-w-[80px] sm:max-w-[131px] w-full h-[40px] sm:h-[48px] bg-[#FF7010] rounded-lg text-white">
-                      <button
-                        onClick={() => decrease(pro)}
-                        className="flex cursor-pointer items-center justify-center w-[32px] sm:w-[40px] h-full hover:bg-black/10 rounded-l-lg"
-                      >
-                        <Minus size={18} strokeWidth={2} />
-                      </button>
+          <Swiper
+            slidesPerView="auto"
+            spaceBetween={12}
+            className="w-full py-3"
+            loop={true}
+            modules={[Autoplay]}
+            autoplay={{
+              delay: 1500,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
 
-                      <span className="font-medium text-[14px] sm:text-[18px] select-none">
-                        {cart.find((el) => el.id === pro.id).qty}
-                      </span>
+            breakpoints={{
+              0: {
+                slidesPerView: 1.1,   // juda kichik ekran
+              },
+              480: {
+                slidesPerView: 1.5,
+              },
+              640: {
+                slidesPerView: 2.2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              1024: {
+                slidesPerView: 4,
+              },
+              1280: {
+                slidesPerView: 4.5,
+              },
+            }}
 
-                      <button
-                        onClick={() => increase(pro)}
-                        className="flex cursor-pointer items-center justify-center w-[32px] sm:w-[40px] h-full hover:bg-black/10 rounded-r-lg"
-                      >
-                        <Plus size={18} strokeWidth={2} />
-                      </button>
+          >
+            {(selectedCategoryId
+              ? productsData.filter(item => item.categoryId === selectedCategoryId)
+              : productsData.filter(item => item.categoryId === DEFAULT_CATEGORY_ID)
+            ).map((pro) => (
+              <SwiperSlide
+                key={pro.id}
+                className="!w-auto"
+              >
+                {/* CARD – O‘ZGARMAGAN */}
+                <div className='flex items-center gap-3 p-3 bg-white border-gray-200 rounded-lg overflow-hidden border min-w[330px] sm:min-w-[270px]'>
+
+                  <div>
+                    <img
+                      className='w-[100px] h-auto sm:h-[120px]'
+                      src={pro.image}
+                      alt={pro.title}
+                    />
+                  </div>
+
+                  <div>
+                    <h1 className='font-medium text-[18px] whitespace-nowrap'>
+                      {pro.title}
+                    </h1>
+
+                    <p className='line-clamp-2'>
+                      Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...
+                    </p>
+
+                    <div className='mt-4 flex items-center justify-end gap-2'>
+                      {cart.find((el) => el.id === pro.id) ? (
+                        <div className="max-w-[60px] sm:max-w-[111px] w-full h-[30px] sm:h-[38px] bg-[#FF7010] rounded-lg text-white flex items-center justify-between">
+                          <button
+                            onClick={() => decrease(pro)}
+                            className="w-full h-full flex items-center cursor-pointer justify-center hover:bg-black/10 rounded-l-lg"
+                          >
+                            <Minus size={18} />
+                          </button>
+
+                          <span className="text-[14px] flex items-center justify-center w-full sm:text-[18px] select-none">
+                            {cart.find((el) => el.id === pro.id).qty}
+                          </span>
+
+                          <button
+                            onClick={() => increase(pro)}
+                            className="w-full h-full flex items-center cursor-pointer justify-center hover:bg-black/10 rounded-r-lg"
+                          >
+                            <Plus size={18} />
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => addToCart(pro)}
+                          className='max-w-[60px] sm:max-w-[111px] cursor-pointer w-full h-[30px] sm:h-[38px] bg-[#FF7010] rounded-lg text-white font-medium text-[14px] sm:text-[18px]'
+                        >
+                          Выбрать
+                        </button>
+                      )}
+
+                      <h2 className='font-medium whitespace-nowrap bg-orange-100 sm:bg-transparent p-2 sm:p-0 rounded text-[#FF7010] text-[16px] xl:text-[18px]'>
+                        от <span className='font-medium'>{pro.basePrice}</span> ₽
+                      </h2>
                     </div>
-                  ) : (
-                    <button onClick={() => addToCart(pro)} className='max-w-[80px] sm:max-w-[131px] w-full h-[40px] sm:h-[48px] bg-[#FF7010] rounded-lg text-white font-medium cursor-pointer text-[14px] sm:text-[18px]'>
-                      Выбрать
-                    </button>
-                  )
-                  }
-                  <h2 className='font-medium whitespace-nowrap bg-orange-100 sm:bg-transparent p-2 sm:p-0 rounded text-[#FF7010] text-[16px] xl:text-[18px]'>
-                    от <span className='font-medium'>{pro.basePrice}</span> ₽
-                  </h2>
+                  </div>
+
                 </div>
-              </div>
-            </div>
-          ))}
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
 
         <div className='flex items-center justify-between bg-[white] rounded-lg gap-5 p-3'>
