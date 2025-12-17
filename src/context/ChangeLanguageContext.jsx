@@ -46,6 +46,21 @@ const ChangeLanguageContext = ({ children }) => {
             phone_register: "Telefon",
             cancel: "Bekor qilish",
             save: "Saqlash",
+            login_out: "Akkountdan chiqish",
+            // cart
+            your_order_cart: "Buyurtmangiz",
+            add_to_order_cart: "Buyurtmaga qo‘shilsinmi?",
+            about_you_cart: "Siz haqingizda",
+            email_cart: "Elektron pochta",
+            promo_code_cart: "Promo kodni kiriting",
+            delivery_cart: "Yetkazib berish",
+            pickup_cart: "O‘zing olib ketish",
+            any_notes_cart: "Izohlaringiz bormi?",
+            total_cart: "Jami:",
+            place_order_cart: "Buyurtmani rasmiylashtirish",
+            sauces_cart: "Sovuslar",
+            fill_your_cart: "Savatni to'ldiring",
+            home: "Bosh sahifa",
         },
         en: {
             header_head: "Toshkent",
@@ -80,6 +95,22 @@ const ChangeLanguageContext = ({ children }) => {
             phone_register: "Phone",
             cancel: "Canel",
             save: "Save",
+            login_out: "Log Out",
+            // cart
+            your_order_cart: "Your Order",
+            add_to_order_cart: "Add to Order?",
+            about_you_cart: "About You",
+            email_cart: "Email",
+            promo_code_cart: "Enter Promo Code",
+            delivery_cart: "Delivery",
+            pickup_cart: "Pickup",
+            any_notes_cart: "Any Notes?",
+            total_cart: "Total:",
+            place_order_cart: "Place Order",
+            sauces_cart: "Sauces",
+            fill_your_cart: "Fill your cart",
+            home: "Home",
+
         },
         ru: {
             header_head: "Toshkent",
@@ -114,6 +145,23 @@ const ChangeLanguageContext = ({ children }) => {
             phone_register: "Телефон",
             cancel: "Отмена",
             save: "Сохранить",
+            login_out: "Выйти из аккаунта",
+            // cart
+            your_order_cart: "Ваш заказ",
+            add_to_order_cart: "Добавить в заказ?",
+            about_you_cart: "О вас",
+            email_cart: "Электронная почта",
+            promo_code_cart: "Введите промокод",
+            delivery_cart: "Доставка",
+            pickup_cart: "Самовывоз",
+            any_notes_cart: "Есть заметки?",
+            total_cart: "Итого:",
+            place_order_cart: "Оформить заказ",
+            sauces_cart: "Соусы",
+            fill_your_cart: "Заполните корзину",
+            home: "Главная"
+
+
         }
     }
 

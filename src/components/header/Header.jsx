@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 const Header = () => {
     const { cart } = useContext(CartContext)
     const { lang, setLang, t } = useContext(LanguageContext)
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("pizza-user")));
 
     const [isScrolled, setIsScrolled] = useState(false)
     const [lastScrollY, setLastScrollY] = useState(0)
@@ -15,7 +16,7 @@ const Header = () => {
     const [loadingFlag, setLoadingFlag] = useState(false)
     const [firstTimeOpened, setFirstTimeOpened] = useState(true)
     const dropdownRef = useRef(null)
-    const user = localStorage.getItem("pizza-user");
+    const users = localStorage.getItem("pizza-user");
 
 
     const languages = [
@@ -52,6 +53,12 @@ const Header = () => {
         return () => document.removeEventListener('mousedown', handleClickOutside)
     }, [])
 
+    const handleLogoutHead = () => {
+        localStorage.removeItem("pizza-user"); 
+    
+    };
+
+
     // Handle dropdown open
     const handleDropdown = () => {
         if (firstTimeOpened) {
@@ -85,9 +92,9 @@ const Header = () => {
                         <div className="flex items-center gap-2 relative" ref={dropdownRef}>
                             <div className="hidden md:flex cursor-pointer items-center gap-1">
                                 <User className="text-[#FF7010] w-5 h-5" />
-                            {user ? (<p onClick={() => {
-                                localStorage.removeItem("pizza-user")
-                            }} className=' text-[14px] text-[red] whitespace-nowrap'>Exit-</p>) : (    <p className=" text-[14px] whitespace-nowrap">{t.header_profile}</p>)}
+                                {users ? (<p onClick={handleLogoutHead} className='text-[14px] text-[red] whitespace-nowrap'>
+                                    {t.login_out}</p>
+                                ) : (<p className=" text-[14px] whitespace-nowrap">{t.header_profile}</p>)}
                             </div>
 
                             {/* Language dropdown */}

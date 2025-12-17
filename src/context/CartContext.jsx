@@ -28,9 +28,9 @@ const CartProvider = ({ children }) => {
     }
     const decrease = (el) => {
         setCart((prev) => {
-            return prev.filter((item) => item.qty > 1).map((e) => {
-                if (el.id === e.id) {
-                    return { ...e, qty: e.qty - 1 }
+            return prev.filter((item) => item.qty > 1)?.map((e) => {
+                if (el?.id === e?.id) {
+                    return { ...e, qty: e?.qty - 1 }
                 } else {
                     return e
                 }

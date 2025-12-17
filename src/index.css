@@ -3,3 +3,14 @@
 body{
     background-color: rgba(128, 128, 128, 0.041);
 }
+
+
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 2s linear infinite;
+  }
+  .delay-150 { animation-delay: 0.15s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-450 { animation-delay: 0.45s; }
+}

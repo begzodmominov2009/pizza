@@ -65,9 +65,18 @@ const HomePage = () => {
 
   if (loading) {
     return (
-      <div className="w-full h-[80vh] flex justify-center items-center">
-        <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent border-solid rounded-full animate-spin"></div>
+      <div className="flex items-center justify-center h-screen -mt-20">
+        <div className="relative w-24 h-24 animate-spin-slow flex items-center justify-center">
+          {/* Pizza slice */}
+          <div className="absolute w-24 h-24 rounded-full border-t-4 border-l-4 border-yellow-400 border-r-4 border-b-0 border-solid"></div>
+
+          {/* Cheese melting effect */}
+          <div className="absolute w-4 h-4 bg-orange-400 rounded-full top-1/2 left-1/3 animate-bounce delay-150"></div>
+          <div className="absolute w-4 h-4 bg-orange-400 rounded-full top-2/3 left-2/3 animate-bounce delay-300"></div>
+          <div className="absolute w-4 h-4 bg-orange-400 rounded-full top-1/3 left-2/3 animate-bounce delay-450"></div>
+        </div>
       </div>
+
     )
   }
 
