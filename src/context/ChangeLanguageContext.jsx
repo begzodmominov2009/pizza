@@ -35,7 +35,17 @@ const ChangeLanguageContext = ({ children }) => {
             payment_methods_profile: "To‘lov usullari",
             select_language_profile: "Tilni tanlang",
             save_profile: "Saqlash",
-            exit_profile: "Chiqish"
+            exit_profile: "Chiqish",
+            cart_button_text: "Savatga",
+            yes: "Ha",
+            no: "Yo'q",
+            exit_profile_save: "Chiqishni xohlaysizmi?",
+            register_modal: "Ro'yxatan o'tish",
+            name_register: "Ism",
+            password_register: "Parol",
+            phone_register: "Telefon",
+            cancel: "Bekor qilish",
+            save: "Saqlash",
         },
         en: {
             header_head: "Toshkent",
@@ -59,7 +69,17 @@ const ChangeLanguageContext = ({ children }) => {
             payment_methods_profile: "Payment Methods",
             select_language_profile: "Select Language",
             save_profile: "Save",
-            exit_profile: "Exit"
+            exit_profile: "Exit",
+            cart_button_text: "Add",
+            yes: "Yes",
+            no: "No",
+            exit_profile_save: "Are you sure you want to logout?",
+            register_modal: "Register",
+            name_register: "Name",
+            password_register: "Password",
+            phone_register: "Phone",
+            cancel: "Canel",
+            save: "Save",
         },
         ru: {
             header_head: "Toshkent",
@@ -83,7 +103,17 @@ const ChangeLanguageContext = ({ children }) => {
             payment_methods_profile: "Методы оплаты",
             select_language_profile: "Выберите язык",
             save_profile: "Сохранить",
-            exit_profile: "Выйти"
+            exit_profile: "Выйти",
+            cart_button_text: "Выбрать",
+            yes: "Да",
+            no: "Нет",
+            exit_profile_save: "Вы хотите выйти?",
+            register_modal: "Регистрация",
+            name_register: "Имя",
+            password_register: "Пароль",
+            phone_register: "Телефон",
+            cancel: "Отмена",
+            save: "Сохранить",
         }
     }
 

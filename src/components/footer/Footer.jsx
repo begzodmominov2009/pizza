@@ -1,15 +1,17 @@
 import { Home, LayoutGrid, Search, ShoppingCart, User } from "lucide-react"
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import { LanguageContext } from "../../context/ChangeLanguageContext"
 
 export default function Footer() {
+  const { lang, setLang, t } = useContext(LanguageContext)
 
   const navItems = [
-    { to: "/", label: "Home", icon: Home },
-    { to: "/category", label: "Category", icon: LayoutGrid },
-    { to: "/search", label: "Search", icon: Search },
-    { to: "/cart", label: "Cart", icon: ShoppingCart },
-    { to: "/profile", label: "Profile", icon: User },
+    { to: "/", label: `${t.bottom_nav_home}`, icon: Home },
+    { to: "/category", label: `${t.bottom_nav_category}`, icon: LayoutGrid },
+    { to: "/search", label: `${t.bottom_nav_search}`, icon: Search },
+    { to: "/cart", label: `${t.bottom_nav_cart}`, icon: ShoppingCart },
+    { to: "/profile", label: `${t.bottom_nav_profile}`, icon: User },
   ]
 
   return (

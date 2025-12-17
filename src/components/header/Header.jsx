@@ -2,6 +2,7 @@ import { MapPinned, ReceiptRussianRuble, Search, ShoppingCart, User } from 'luci
 import React, { useContext, useEffect, useState, useRef } from 'react'
 import { CartContext } from '../../context/CartContext'
 import { LanguageContext } from '../../context/ChangeLanguageContext'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
     const { cart } = useContext(CartContext)
@@ -14,6 +15,8 @@ const Header = () => {
     const [loadingFlag, setLoadingFlag] = useState(false)
     const [firstTimeOpened, setFirstTimeOpened] = useState(true)
     const dropdownRef = useRef(null)
+    const user = localStorage.getItem("pizza-user");
+
 
     const languages = [
         { code: 'uz', name: 'UZ', flag: '/uz.png' },
@@ -82,7 +85,9 @@ const Header = () => {
                         <div className="flex items-center gap-2 relative" ref={dropdownRef}>
                             <div className="hidden md:flex cursor-pointer items-center gap-1">
                                 <User className="text-[#FF7010] w-5 h-5" />
-                                <p className=" text-[14px] whitespace-nowrap">{t.header_profile}</p>
+                            {user ? (<p onClick={() => {
+                                localStorage.removeItem("pizza-user")
+                            }} className=' text-[14px] text-[red] whitespace-nowrap'>Exit-</p>) : (    <p className=" text-[14px] whitespace-nowrap">{t.header_profile}</p>)}
                             </div>
 
                             {/* Language dropdown */}
@@ -134,17 +139,19 @@ const Header = () => {
                 <hr className="border-[#F0F0F0] mt-2" />
             </div>
             <div className="container mx-auto px-2 lg:px-0 2xl:px-32 flex items-center justify-between py-3">
-                <img src="/logo.svg" alt="logo" />
+                <Link to={"/"}>
+                    <img src="/logo.svg" alt="logo" />
+                </Link>
                 <div className="flex items-center gap-2">
-                    <button className="hidden md:flex items-center cursor-pointer w-[89px] h-[40px] justify-center gap-2 bg-[#FF7010] text-white px-3 py-1 rounded">
+                    <Link to={"cart"} className="hidden md:flex items-center cursor-pointer w-[89px] h-[40px] justify-center gap-2 bg-[#FF7010] text-white px-3 py-1 rounded">
                         <ShoppingCart className="w-5 h-5" />
                         <span>{cart.length}</span>
-                    </button>
+                    </Link>
                     <button className="hidden md:flex items-center cursor-pointer max-w-[129px] w-full h-[40px] justify-center gap-[2px] bg-[#FF7010] text-white px-3 py-1 rounded">
                         <ReceiptRussianRuble className="w-5 h-5" />
                         <span className="flex items-center">{Math.ceil(sum)}</span>
                     </button>
-                    <button>
+                    <button className='flex md:hidden'>
                         <Search className='w-5 h-5 text-[#FF7010]' />
                     </button>
                 </div>
