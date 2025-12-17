@@ -41,7 +41,7 @@ export default function CartPage() {
 
   return (
     <div className="w-full container mx-auto  px-0 2xl:px-33">
-      {carts.lenght ? (
+      {cartItems.length > 0 ? (
         <div
           className="w-full w-full bg-white rounded-[12px] p-4 md:p-6
         "
