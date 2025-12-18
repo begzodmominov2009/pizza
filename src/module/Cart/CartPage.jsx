@@ -231,7 +231,6 @@ export default function CartPage() {
             {t.home}
           </Link>
         </div>
-
       )}
     </div>
   );

@@ -240,11 +240,17 @@ const HomePage = () => {
 
         {categoryData.map((el) => (
           <div className='text-left'>
-            <h1 className='text-[24px] font-medium mt-5'>
-              {
-                productsData.find((e) => e.categoryId === el.id) ? el.title : ""
-              }
-            </h1>
+            <div className='flex items-center justify-between'>
+              <h1 className='text-[24px] font-medium mt-5'>
+                {
+                  productsData.find((e) => e.categoryId === el.id) ? el.title : ""
+                }
+              </h1>
+              <a href={`all`} className='bg-orange-500 px-3 py-1 rounded-lg text-[white] font-medium cursor-pointer'>
+                All {""}
+                {productsData.find((item) => item.categoryId === el.id) ? el.title : ""}
+              </a>
+            </div>
             <div className='mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2'>
               {productsData
                 .filter((el1) => el1.categoryId === el.id)
