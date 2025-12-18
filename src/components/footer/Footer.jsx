@@ -8,10 +8,10 @@ export default function Footer() {
 
   const navItems = [
     { to: "/", label: `${t.bottom_nav_home}`, icon: Home },
-    { to: "/category", label: `${t.bottom_nav_category}`, icon: LayoutGrid },
-    { to: "/search", label: `${t.bottom_nav_search}`, icon: Search },
-    { to: "/cart", label: `${t.bottom_nav_cart}`, icon: ShoppingCart },
-    { to: "/profile", label: `${t.bottom_nav_profile}`, icon: User },
+    { to: "category", label: `${t.bottom_nav_category}`, icon: LayoutGrid },
+    { to: "search", label: `${t.bottom_nav_search}`, icon: Search },
+    { to: "cart", label: `${t.bottom_nav_cart}`, icon: ShoppingCart },
+    { to: "profile", label: `${t.bottom_nav_profile}`, icon: User },
   ]
 
   return (
@@ -27,7 +27,7 @@ export default function Footer() {
                 }`
               }
             >
-              <Icon size={22} />
+              <Icon size={24} />
               <span>{label}</span>
             </NavLink>
           ))}

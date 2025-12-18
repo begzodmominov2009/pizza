@@ -36,10 +36,10 @@ export default function ProfilePage() {
 
     const navItems = [
         { to: "/", label: `${t.bottom_nav_home}`, icon: Home },
-        { to: "/category", label: `${t.bottom_nav_category}`, icon: LayoutGrid },
-        { to: "/search", label: `${t.bottom_nav_search}`, icon: Search },
-        { to: "/cart", label: `${t.bottom_nav_cart}`, icon: ShoppingCart },
-        { to: "/profile", label: `${t.bottom_nav_profile}`, icon: User },
+        { to: "category", label: `${t.bottom_nav_category}`, icon: LayoutGrid },
+        { to: "search", label: `${t.bottom_nav_search}`, icon: Search },
+        { to: "cart", label: `${t.bottom_nav_cart}`, icon: ShoppingCart },
+        { to: "profile", label: `${t.bottom_nav_profile}`, icon: User },
     ]
 
     useEffect(() => {
@@ -189,7 +189,7 @@ export default function ProfilePage() {
                                 `flex flex-col items-center gap-1 text-xs transition ${isActive ? "text-[#FF7010]" : "text-gray-500"}`
                             }
                         >
-                            <Icon size={22} />
+                            <Icon size={24} />
                             <span>{label}</span>
                         </NavLink>
                     ))}

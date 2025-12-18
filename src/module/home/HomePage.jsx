@@ -30,7 +30,7 @@ const HomePage = () => {
     try {
       const res = await axios.get("https://693d1ae6f55f1be79301e90f.mockapi.io/categories")
       setCategoryData(res.data)
-      setActiveCategory(res.data[0]?.id) // default: birinchi category
+      setActiveCategory(res.data[0]?.id) 
     } catch (err) {
       console.log(err);
     }
@@ -161,12 +161,12 @@ const HomePage = () => {
               >
                 {/* CARD – O‘ZGARMAGAN */}
                 <div className='flex items-center gap-3 p-3 bg-white border-gray-200 rounded-lg justify-center overflow-hidden border w-[320px] sm:w-[370px]'>
-                  <div>
+                  <div className='w-[160px]'>
                     <MyImage
                       alt={pro.title}
                       src={pro.image}
-                      width={"w-[130px]"}
-                      height={"h-5"}
+                      width={"w-full"}
+                      height={"h-10"}
                     />
                   </div>
 
@@ -181,7 +181,7 @@ const HomePage = () => {
 
                     <div className='mt-4 flex items-center justify-end gap-2'>
                       {cart.find((el) => el.id === pro.id) ? (
-                        <div className="w-[80px] sm:max-w-[111px] w-full h-[28px] sm:h-[38px] bg-[#FF7010] rounded-lg text-white flex items-center justify-between">
+                        <div className="w-[40px] sm:max-w-[111px] w-full h-[38px] sm:h-[38px] bg-[#FF7010] rounded-lg text-white flex items-center justify-between">
                           <button
                             onClick={() => decrease(pro)}
                             className="w-full h-full flex items-center cursor-pointer justify-center hover:bg-black/10 rounded-l-lg"
@@ -211,7 +211,7 @@ const HomePage = () => {
                               SetUserLoginModal(true);
                             }
                           }}
-                          className='max-w-[80px] sm:max-w-[131px] px-2 w-full h-[30px] sm:h-[38px] bg-[#FF7010] rounded-lg text-[white] font-medium cursor-pointer text-[14px] sm:text-[18px]'
+                          className='w-[40px] sm:max-w-[131px] px-2 w-full h-[38px] sm:h-[38px] bg-[#FF7010] rounded-lg text-[white] font-medium cursor-pointer text-[14px] sm:text-[18px]'
                         >
                           {t.cart_button_text}
                         </button>
@@ -246,7 +246,7 @@ const HomePage = () => {
                   productsData.find((e) => e.categoryId === el.id) ? el.title : ""
                 }
               </h1>
-              <a href={`all`} className='bg-orange-500 px-3 py-1 rounded-lg text-[white] font-medium cursor-pointer'>
+              <a href={`all/${el.id}`} className='bg-orange-500 px-3 py-1 rounded-lg text-[white] font-medium cursor-pointer'>
                 All {""}
                 {productsData.find((item) => item.categoryId === el.id) ? el.title : ""}
               </a>
@@ -256,18 +256,20 @@ const HomePage = () => {
                 .filter((el1) => el1.categoryId === el.id)
                 .map((item) => (
                   <div className='w-full sm:max-w-[310px] flex sm:flex-col items-center justify-between gap-5 p-2 sm:p-3 w-full bg-white border-gray-200 rounded-lg overflow-hidden border'>
-                    <MyImage
-                      alt={"image"}
-                      src={item.image}
-                      width={"w-[20px]"}
-                      height={"h-[20px]"}
-                    />
+                    <div className='w-[180px]'>
+                      <MyImage
+                        alt={"image"}
+                        src={item.image}
+                        width={"w-full"}
+                        height={"h-[180px]"}
+                      />
+                    </div>
                     <div>
                       <div>
                         <h1 className='font-medium text-[18px]'>{item.title}</h1>
                         <p className='line-clamp-2'>Бекон, Ветчина, Грибы, Курица, Лук, Маслины, Огурцы мари...</p>
                       </div>
-                      <div className='mt-4 flex items-center gap-2 justify-between'>
+                      <div className='mt-4 flex items-center gap-2 justify-end'>
                         {
                           cart.find((el) => el.id === item.id) ? (
                             <div className="flex items-center justify-between max-w-[80px] sm:max-w-[131px] w-full h-[40px] sm:h-[48px] bg-[#FF7010] rounded-lg text-white">
